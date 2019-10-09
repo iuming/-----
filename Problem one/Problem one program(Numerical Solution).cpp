@@ -27,7 +27,7 @@ using namespace std;
 int main()
 {
 	ofstream fout;
-	fout.open("Problem one data.csv");
+	fout.open("Problem one data(Numerical Solution).csv");
  	int i,j,l,num=1;
  	float cha,x,y,x2,y2;
  	float t[N][M],a[N][M];
@@ -65,16 +65,11 @@ int main()
  	}
  	l=0;
  	for(j=M-1;j>=0;j--)
+	 {
   		for(i=0;i<N;i++)
-  		{
    			fout<<t[i][j]<<',';
-   			l++;
-   			if(l==N)
-   			{
-    			fout<<endl;
-    			l=0;
-   			}
-  		}
+		fout<<endl;
+	 }
   	fout.close();
   	return 0;
 } 
