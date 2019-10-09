@@ -31,9 +31,7 @@ int main()
  	int i,j,l,num=1;
  	float cha,x,y,x2,y2;
  	float t[N][M],a[N][M];
-	for(i=0;i<N;i++)
-   		for(j=0;j<M;j++)
-    		t[i][j]=0;
+	memset(t,0,sizeof(t));
 	for(j=0;j<M;j++)
  	{
   		t[0][j]=25;
