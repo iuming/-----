@@ -20,48 +20,30 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE
 #include<bits/stdc++.h>  
+#define M 42
+#define N 4
 #define pi 3.1415926535  
-#define N 100  
-#define M 100  
 using namespace std;  
 int main()  
 {  
 	ofstream fout;  
 	fout.open("Problem two date(Analytical Solution).csv"); 
-	double L1=3.0,L2=2.0,f=0.0,s=0.0;  
-	double tw1=25,tw2=5;  
-	float len1=L1/(N-1),len2=L2/(M-1);  
+    double L1=20.0,L2=1.0,h=10,a=1000,m=0.5,n=0.5,tf=10,tw=50;
+    double Bi=h*L2/2/a;
 	double t[M][N],T[M][N];  
 	memset(t,0,sizeof(t));  
     memset(T,0,sizeof(T));  
-    for(int i=0;i<N;i++)  
-	{  
-    	t[i][0]=tw1;  
-        t[i][N-1]=tw2;  
-    }  
-    for(int j=0;j<M;j++)  
-    {  
-        t[0][j]=tw1;  
-        t[M-1][j]=tw1;  
-    }  
-    for (int i=1;i<N-1;i++)  
-        for (int j=1;j<M-1;j++)  
-		{
-			int sum=0;
-			for (int k=1;k<=99;k++)
-			{
-				s=(2*k-1)*pi;
-				f=4/s*sin(s*(i-1)*len1/L1)*sinh(s*(j-1)*len2/L1)/sinh(s*L2/L1);
-				sum+=f;
-			}
-			t[j][i]=tw1+(tw1-tw2)*sum;
-		}
-    for(int j=M-1;j>=0;j--)  
-    {  
-       for(int i=0;i<N;i++)  
-            fout<<t[i][j]<<',';  
-        fout<<endl;  
-    }  
+    for(int i=2;i<=M;i++)  
+        for(int j=1;j<=3;j++)
+            t[i][j]=30;
+    for(int j=1;j<=N;j++)
+        t[1][j]=50;
+    for(int i=2;i<=M;i++)
+        for(int j=1;j<=N;j++)
+            t[i][j]=tf+(tw-tf)*((cosh(sqrt(Bi)*(L1-(i-1)*0.5)/L2*2)+sqrt(Bi)*sinh(sqrt(Bi)*(L1-(i-1)*0.5)/L2*2))/(cosh(sqrt(Bi)*L1/L2*2)+sqrt(Bi)*sinh(sqrt(Bi)*L1/L2*2)));
+    double Q=(t[2][1]-t[1][1])/m*n/2*a+(t[2][3]-t[1][3])/m*n/2*a+(t[2][2]-t[1][2])/m*n*a;
+    cout<<Q<<endl;
+    
     fout.close();  
     return 0;  
 }  
