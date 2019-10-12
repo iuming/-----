@@ -30,9 +30,8 @@ int main()
 	fout.open("Problem three date(Analytical Solution).csv"); 
     double L1=20.0,L2=1.0,h=10,a=1000,m=0.5,n=0.5,tf=10,tw=50;
     double Bi=h*L2/2/a;
-	double t[M][N],T[M][N];  
-	memset(t,0,sizeof(t));  
-    memset(T,0,sizeof(T));  
+	double t[M][N];  
+	memset(t,0,sizeof(t));   
     for(int i=2;i<=M;i++)  
         for(int j=1;j<=3;j++)
             t[i][j]=30;

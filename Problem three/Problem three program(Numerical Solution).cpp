@@ -19,58 +19,58 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
-#include<bits/stdc++.h> 
-#define N 100
-#define M 100
-#define pi 3.1415926535
-using namespace std;
-int main()
-{
-	ofstream fout;
-	fout.open("Problem two data(Numerical Solution).csv");
- 	int i,j,l,num=1;
- 	float cha,x,y,x2,y2;
- 	float t[N][M],a[N][M];
-	for(i=0;i<N;i++)
-   		for(j=0;j<M;j++)
-    		t[i][j]=0;
-	for(j=0;j<M;j++)
- 	{
-  		t[0][j]=25;
-  		t[M-1][j]=25;
+#include<bits/stdc++.h>  
+#define M 42
+#define N 4
+#define pi 3.1415926535  
+using namespace std;  
+int main()  
+{  
+	ofstream fout;  
+	fout.open("Problem three date(Numerical Solution).csv"); 
+    double L1=20.0,L2=1.0,h=10,a=1000,m=0.5,n=0.5,tf=10,tw=50;
+    double esp=1.0;
+	double t[M][N],T[M][N];  
+	memset(t,0,sizeof(t));  
+    memset(T,0,sizeof(T));  
+    for(int i=2;i<=M;i++)  
+        for(int j=1;j<=3;j++)
+            t[i][j]=30;
+    for(int j=1;j<=N;j++)
+        t[1][j]=50;
+    int k=0;
+    while(esp>1e-6)
+    {
+    	k++;
+    	int max1=0;
+    	for(int i=2;i<=M-1;i++)
+    	{
+    		t[i][N]=(n*a/(m*2)*(t[i+1][N]+t[i-1][N])+m*a/n*t[i][N-1]+h*tf*m)/(n*a/m+m*a/n+h*m);
+			t[i][1]=(n*a/(m*2)*(t[i+1][1]+t[i-1][1])+m*a/n*t[i][2]+h*tf*m)/(n*a/m+m*a/n+h*m);
+			t[i][2]=0.25*(t[i-1][2]+t[i+1][2]+t[i][1]+t[i][3]);
+			t[M][2]=(m/2*a*t[M][3]/n+m/2*a*t[M][1]/n+n*a*t[M-1][2]/m+n*h*tf)/(m*a/n+n*a/m+n*h);
+			t[M][N]=(n/2*a*t[M-1][N]/m+m/2*a*t[M][N-1]/n+m/2*h*tf+n/2*h*tf)/(n/2*a/m+m/2*a/n+m/2*h+n/2*h);
+			t[M][1]=(n/2*a/m*t[M-1][1]+m/2*a*t[M][2]/n+m/2*h*tf+n/2*h*tf)/(n/2*a/m+m/2*a/n+m/2*h+n/2*h);
+		}
+		for(int i=2;i<=M;i++)
+			for(int j=1;j<=N;j++)
+			{
+				esp=abs(t[i][j]-T[i][j]);
+				int max2=esp;
+				if(max2>=max1)max1=max2;
+			}
+		esp=max1;
+		cout<<esp<<endl;
+		swap(t,T);
 	}
- 	for(i=0;i<N;i++)
- 	{
-  		t[i][0]=25;
-  		t[i][N-1]=5;
- 	}
- 	x=1.0/(N-1);
- 	y=1.0/(M-1);
- 	cha=1;
- 	while(cha>1e-6)
- 	{
-  		for(i=0;i<N;i++)
-   			for(j=0;j<M;j++)
-    			a[i][j]=t[i][j];
-  		for(i=1;i<N-1;i++)
-   			for(j=1;j<M-1;j++)
-   			{
-			   	x2=pow(x,2);y2=pow(y,2);
-    			t[i][j]=0.5*y2*(t[i+1][j]+t[i-1][j])/(x2+y2)+0.5*x2*(t[i][j+1]+t[i][j-1])/(x2+y2);
-    		}
-  		cha=0;
-  		for(i=0;i<N;i++)
-   			for(j=0;j<M;j++)
-    			cha=cha+abs(a[i][j]-t[i][j]);
-  		cha=cha/(N*M);
-  		cout<<num++<<' '<<cha<<endl;
- 	}
- 	for(j=M-1;j>=0;j--)
- 	{
-  		for(i=0;i<N;i++)
-   			fout<<t[i][j]<<',';
-   		fout<<endl;
-   	}
-  	fout.close();
-  	return 0;
+    double Q=(t[2][1]-t[1][1])/m*n/2*a+(t[2][3]-t[1][3])/m*n/2*a+(t[2][2]-t[1][2])/m*n*a;
+    cout<<Q<<endl;
+    for(int j=1;j<=N-1;j++)  
+    {  
+       for(int i=1;i<=M-1;i++)  
+            fout<<t[i][j]<<',';  
+        fout<<endl;  
+    } 
+    fout.close();  
+    return 0;  
 } 
